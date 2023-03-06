@@ -9,6 +9,7 @@
 #include <imgui\imgui_impl_sdl_gl3.h>
 
 #include "GL_framework.h"
+#include <objects/Axis.h>
 
 struct CameraTransforms {
 	glm::mat4 _projection;
@@ -17,6 +18,12 @@ struct CameraTransforms {
 	glm::mat4 _cameraRotationMat;
 	glm::mat4 _inv_modelview;
 	glm::vec4 _cameraPoint;
+
+	glm::mat4 rotation;
+	glm::mat4 translation;
+	glm::mat4 scale;
+	glm::mat4 objMat;
+
 };
 
 class Renderer
@@ -35,6 +42,8 @@ protected:
 
 	CameraTransforms cam;
 
+	Axis* axis;
+
 	struct prevMouse {
 		float lastx, lasty;
 		MouseEvent::Button button = MouseEvent::Button::None;
@@ -48,5 +57,6 @@ protected:
 
 	virtual void render(float dt);
 	virtual void renderGUI();
+	void ShowAxis();
 };
 

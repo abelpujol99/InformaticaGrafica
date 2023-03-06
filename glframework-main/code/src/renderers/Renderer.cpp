@@ -6,9 +6,11 @@ Renderer::Renderer(int width, int height)
 	glClearColor(bgColor[0],bgColor[1],bgColor[2],bgColor[3]);
 	glClearDepth(1.f);
 
+	axis = new Axis();
+
 	cam._projection = glm::perspective(FOV, (float)width / (float)height, zNear, zFar);
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 }
 
@@ -32,6 +34,11 @@ void Renderer::GUI()
 		if (ImGui::Button("Reset Camera")) {
 			panv[0] = panv[1] = panv[2] = 0.f;
 			rota[0] = rota[1] = 0.f;
+		}
+
+		if (ImGui::Button("Toggle Axis"))
+		{
+			axis->toggle();
 		}
 
 		renderGUI();
@@ -103,13 +110,25 @@ void Renderer::GLrender(float dt)
 	/////////////////////////////////////////////////////////
 
 	ImGui::Render();
+	
+	ShowAxis();
+}
+
+void Renderer::ShowAxis() {
+
+	cam.rotation = cam._cameraRotationMat;
+	cam.translation = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -0.5f));
+	cam.scale = glm::scale(glm::mat4(), glm::vec3(0.2f));
+	cam.objMat = cam.translation * cam.rotation * cam.scale;
+
+	axis->setTransforms(cam.objMat);
+	axis->draw();
 }
 
 void Renderer::render(float dt)
 {
-
 }
 
-void Renderer::renderGUI() {
-
+void Renderer::renderGUI() 
+{
 }

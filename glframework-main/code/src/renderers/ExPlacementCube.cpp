@@ -1,6 +1,6 @@
-#include <renderers/ExPlacementTriangles.h>
+#include <renderers/ExPlacementCube.h>
 
-ExPlacementTriangles::ExPlacementTriangles(int width, int height) : Renderer(width, height)
+ExPlacementCube::ExPlacementCube(int width, int height) : Renderer(width, height)
 {
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f,
@@ -51,18 +51,16 @@ ExPlacementTriangles::ExPlacementTriangles(int width, int height) : Renderer(wid
 	glBindVertexArray(0);
 
 	axis = new Axis();
-
-	axis->toggle();
 }
 
-ExPlacementTriangles::~ExPlacementTriangles()
+ExPlacementCube::~ExPlacementCube()
 {
 	delete program;
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 }
 
-void ExPlacementTriangles::render(float dt)
+void ExPlacementCube::render(float dt)
 {
 	program->use();
 	glBindVertexArray(VAO);
@@ -73,32 +71,14 @@ void ExPlacementTriangles::render(float dt)
 	GLuint mvpMatLoc = program->getUniform("mvpMat");
 
 	// Declare all the matrices that we will use
-	glm::mat4 rotation, translation, objMat;
+	glm::mat4 rotation, translation, scale, objMat;
 
-	// Draw front triangle (red)
-	glUniform4f(colorLoc, 0.9f, 0.1f, 0.1f, 1.0f);
-	rotation = glm::rotate(glm::mat4(), glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	// Draw cube
+	glm::vec4 color = glm::vec4(0.9f, 0.1f, 0.1f, 1.0f);
+	rotation = glm::rotate(glm::mat4(), glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	translation = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -10.0f));
 	objMat = translation * rotation;
-	glUniformMatrix4fv(objMatLoc, 1, GL_FALSE, glm::value_ptr(objMat));
-	glUniformMatrix4fv(mvpMatLoc, 1, GL_FALSE, glm::value_ptr(cam._MVP));
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
-	// Draw right triangle (blue)
-	glUniform4f(colorLoc, 0.1f, 0.1f, 0.9f, 1.0f);
-	rotation = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	translation = glm::translate(glm::mat4(), glm::vec3(2.0f, 0.0f, -10.0f));
-	objMat = translation * rotation;
-	glUniformMatrix4fv(objMatLoc, 1, GL_FALSE, glm::value_ptr(objMat));
-	glUniformMatrix4fv(mvpMatLoc, 1, GL_FALSE, glm::value_ptr(cam._MVP));
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
-	// Draw left triangle (green)
-	glUniform4f(colorLoc, 0.1f, 0.9f, 0.1f, 1.0f);
-	rotation = glm::rotate(glm::mat4(), glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
-	translation = glm::translate(glm::mat4(), glm::vec3(-2.0f, 0.0f, -10.0f));
-	objMat = translation * rotation;
-	glUniformMatrix4fv(objMatLoc, 1, GL_FALSE, glm::value_ptr(objMat));
-	glUniformMatrix4fv(mvpMatLoc, 1, GL_FALSE, glm::value_ptr(cam._MVP));
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	cube.setTransforms(objMat, cam);
+	cube.draw();
+	cube.setColor(color);
 }

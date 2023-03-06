@@ -2,17 +2,20 @@
 #include "Renderer.h"
 #include <Program.h>
 #include <objects/Axis.h>
+#include <objects/Cube.h>
 
-class ExPlacementTriangles : public Renderer
+class ExPlacementCube : public Renderer
 {
     Program* program;
     GLuint VAO;
     GLuint VBO;
+    Cube cube;
     Axis* axis;
 
 public:
-    ExPlacementTriangles(int width, int height);
-    ~ExPlacementTriangles();
+    ExPlacementCube(int width, int height);
+    ~ExPlacementCube();
 protected:
     void render(float dt);
 };
+
