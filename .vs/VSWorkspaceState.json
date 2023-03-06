@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:635e96a111c2d177055d4d3f455dc0ef36f300163d70a48c349b047e589a7c0c
-size 118
+{
+  "ExpandedNodes": [
+    ""
+  ],
+  "SelectedNode": "\\GL_framework.sln",
+  "PreviewInSolutionExplorer": true
+}
