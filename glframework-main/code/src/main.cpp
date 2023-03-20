@@ -6,7 +6,7 @@
 #include <cstdio>
 
 #include <GL_framework.h>
-#include <renderers/ExPlacementCube.h>
+#include <renderers/Texturing.h>
 
 namespace {
 	const int expected_fps = 30;
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 
 	// Init scene here
 	///////////////////////////////////////////////
-	Renderer *renderer = new ExPlacementCube(display_w, display_h);
+	Renderer *renderer = new Texturing(display_w, display_h);
 	///////////////////////////////////////////////
 	
 	// Setup ImGui binding
