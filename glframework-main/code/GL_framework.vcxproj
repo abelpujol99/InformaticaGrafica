@@ -142,10 +142,12 @@ xcopy "$(ProjectDir)libs\SDL2.dll" "$(OutDir)" /y /d</Command>
     <ClCompile Include="src\objects\Cube.cpp" />
     <ClCompile Include="src\renderers\ExPlacementCube.cpp" />
     <ClCompile Include="src\renderers\ExPlacementTriangles.cpp" />
+    <ClCompile Include="src\renderers\GeometryEx1.cpp" />
     <ClCompile Include="src\renderers\Renderer.cpp" />
     <ClCompile Include="src\renderers\Texturing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\renderers\GeometryEx1.h" />
     <ClInclude Include="include\GL_framework.h" />
     <ClInclude Include="include\objects\Axis.h" />
     <ClInclude Include="include\objects\Cube.h" />
@@ -163,6 +165,7 @@ xcopy "$(ProjectDir)libs\SDL2.dll" "$(OutDir)" /y /d</Command>
     <None Include="shaders\texture.frag" />
     <None Include="shaders\texture.vert" />
     <None Include="shaders\triangle.frag" />
+    <None Include="shaders\triangle.geom" />
     <None Include="shaders\triangle.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -6,7 +6,7 @@
 #include <cstdio>
 
 #include <GL_framework.h>
-#include <renderers/Texturing.h>
+#include <renderers/GeometryEx1.h>
 
 namespace {
 	const int expected_fps = 30;
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 
 	// Init scene here
 	///////////////////////////////////////////////
-	Renderer *renderer = new Texturing(display_w, display_h);
+	Renderer *renderer = new GeometryEx1(display_w, display_h);
 	///////////////////////////////////////////////
 	
 	// Setup ImGui binding
